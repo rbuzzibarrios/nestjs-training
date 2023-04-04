@@ -1,0 +1,40 @@
+version: '3.8'
+
+services:
+  mysql:
+    image: mysql:8.0
+    restart: always
+    ports:
+      - 3306:3306
+    volumes:
+      - todo-mysql-data:/var/lib/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: ${DATABASE_PASSWORD}
+      MYSQL_DATABASE: ${DATABASE_NAME}
+      MYSQL_ROOT_HOST: '%'
+      MYSQL_PASSWORD: ${DATABASE_PASSWORD}
+      MYSQL_ALLOW_EMPTY_PASSWORD: 1
+    networks:
+      - networknestjs
+
+  nestjs-training:
+    build: ./
+    image: node:18-alpine
+    ports:
+      - 8080:8080
+    working_dir: /var/www/html
+    volumes:
+      - .:/var/www/html
+    env_file:
+      - .env.development
+    depends_on:
+      - mysql
+    networks:
+      - networknestjs
+
+networks:
+  networknestjs:
+    driver: bridge
+
+volumes:
+  todo-mysql-data:
