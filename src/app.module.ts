@@ -9,7 +9,8 @@ import { Book } from './books/entities/book.entity';
 @Module({
   imports: [
     ConfigModule.forRoot({
-      envFilePath: ['.env.development', '.env'],
+      isGlobal: true,
+      envFilePath: ['.env.testing', '.env.development', '.env'],
     }),
     TypeOrmModule.forRoot({
       type: 'mysql',
