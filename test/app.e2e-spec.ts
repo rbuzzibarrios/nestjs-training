@@ -21,7 +21,7 @@ describe('AppController (e2e)', () => {
           password: process.env.DATABASE_PASSWORD,
           database: process.env.DATABASE_NAME,
           // entities: ['./**/*.entity.ts'],
-          entities: [__dirname + '/../**/*.entity{.ts}'],
+          entities: [__dirname + '/../**/*.entity{.ts,.js}'],
           synchronize: true,
           autoLoadEntities: true,
         }),
