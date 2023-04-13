@@ -44,7 +44,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       NODE_ENV: testing
-      DATABASE_USER: root
+      DATABASE_USER: user
       DATABASE_PASSWORD: secret
       DATABASE_NAME: test
       DATABASE_PORT: 3306
@@ -59,7 +59,7 @@ jobs:
         image: mysql:latest
         env:
           MYSQL_ALLOW_EMPTY_PASSWORD: yes
-          MYSQL_USER: root
+          MYSQL_USER: user
           MYSQL_DATABASE: test
           MYSQL_PASSWORD: secret
         ports:
