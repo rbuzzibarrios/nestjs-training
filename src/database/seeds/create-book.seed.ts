@@ -7,6 +7,6 @@ export class CreateBookSeeder implements Seeder {
   // @ts-ignore
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   public async run(factory: Factory, connection: Connection): Promise<void> {
-    await factory(Book)().create();
+    await factory(Book)().createMany(5);
   }
 }
