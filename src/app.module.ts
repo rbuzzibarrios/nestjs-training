@@ -25,7 +25,6 @@ import { Book } from './books/entities/book.entity';
       synchronize: true,
       autoLoadEntities: true,
     }),
-
     BooksModule,
   ],
   controllers: [AppController],
