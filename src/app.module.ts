@@ -20,7 +20,6 @@ import { TypeOrmModule } from '@nestjs/typeorm';
       username: process.env.DATABASE_USER,
       password: process.env.DATABASE_PASSWORD,
       database: process.env.DATABASE_NAME,
-      // entities: [Book],
       entities: [__dirname + '/../**/*.entity{.ts,.js}'],
       synchronize: true,
       autoLoadEntities: true,
