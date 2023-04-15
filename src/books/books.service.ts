@@ -11,10 +11,8 @@ export class BooksService {
     @InjectRepository(Book) private bookRepository: Repository<Book>,
   ) {}
 
-  create(createBookDto: CreateBookDto) {
-    console.log(createBookDto);
-
-    return 'This action adds a new book';
+  create(createBookDto: CreateBookDto): Promise<Book> {
+    return this.bookRepository.save(createBookDto);
   }
 
   findAll(): Promise<Book[]> {
