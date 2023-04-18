@@ -1,7 +1,7 @@
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
 import * as Faker from 'faker';
-import { define } from 'typeorm-seeding';
+import { define, factory } from 'typeorm-seeding';
 import { Book } from '../../books/entities/book.entity';
 
 define(Book, (faker: typeof Faker) => {
@@ -11,3 +11,6 @@ define(Book, (faker: typeof Faker) => {
 
   return book;
 });
+const factoryBook = factory(Book)();
+
+export default factoryBook;
