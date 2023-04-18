@@ -28,6 +28,6 @@ export class BooksService {
   }
 
   remove(id: number) {
-    return `This action removes a #${id} book`;
+    return this.bookRepository.delete(id);
   }
 }
