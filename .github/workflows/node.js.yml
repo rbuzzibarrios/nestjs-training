@@ -42,9 +42,29 @@ jobs:
   tests:
     needs: lint
     runs-on: ubuntu-latest
+    env:
+      NODE_ENV: testing
+      DATABASE_USER: user
+      DATABASE_PASSWORD: secret
+      DATABASE_NAME: test
+      DATABASE_PORT: 3306
+      DATABASE_HOST: localhost
+      API_VERSION: 1
+      API_PREFIX: api
     strategy:
       matrix:
         node-version: [16.x]
+    services:
+      mysql:
+        image: mysql:latest
+        env:
+          MYSQL_ALLOW_EMPTY_PASSWORD: yes
+          MYSQL_USER: user
+          MYSQL_DATABASE: test
+          MYSQL_PASSWORD: secret
+        ports:
+          - 3306:3306
+        options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
     steps:
       - uses: actions/checkout@v3
       - name: Use Node.js ${{ matrix.node-version }}
