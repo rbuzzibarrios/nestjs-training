@@ -2,9 +2,9 @@ FROM node:18-alpine As build
 
 USER node
 
-RUN yarn global add pm2
-ENV PM2_PUBLIC_KEY duodtpby9a4ookw
-ENV PM2_SECRET_KEY 1kwpfs7pwqusdp6
+#RUN yarn global add pm2
+#ENV PM2_PUBLIC_KEY duodtpby9a4ookw
+#ENV PM2_SECRET_KEY 1kwpfs7pwqusdp6
 
 WORKDIR /var/www/html
 
@@ -22,4 +22,5 @@ RUN mkdir -p /var/www/html/dist
 
 RUN yarn build
 
-CMD ["pm2-runtime", "dist/src/main.js"]
+#CMD ["pm2-runtime", "dist/src/main.js"]
+CMD ["node", "dist/src/main"]
