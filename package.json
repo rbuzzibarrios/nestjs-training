@@ -8,7 +8,6 @@
   "main": "./dist/src/main.js",
   "scripts": {
     "build": "nest build",
-    "build:wnest": "nest build",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
     "start": "node dist/src/main",
     "start:wnest": "nest start",
