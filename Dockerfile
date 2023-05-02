@@ -1,6 +1,6 @@
 FROM node:18-alpine As build
 
-USER node
+#USER node
 
 #RUN yarn global add pm2
 #ENV PM2_PUBLIC_KEY duodtpby9a4ookw
@@ -18,9 +18,10 @@ COPY --chown=node:node . .
 
 USER root
 
-RUN mkdir -p /var/www/html/dist
+# RUN #mkdir -p /var/www/html/dist
 
-RUN yarn build
+#RUN #yarn build
+CMD yarn start:wnest
 
 #CMD ["pm2-runtime", "dist/src/main.js"]
-CMD ["node", "dist/src/main"]
+#CMD ["node", "dist/src/main.js"]
