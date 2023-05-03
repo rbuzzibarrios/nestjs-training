@@ -49,6 +49,7 @@ jobs:
       DATABASE_NAME: test
       DATABASE_PORT: 3306
       DATABASE_HOST: localhost
+      DATABASE_DRIVER: mysql
       API_VERSION: 1
       API_PREFIX: api
     strategy:
