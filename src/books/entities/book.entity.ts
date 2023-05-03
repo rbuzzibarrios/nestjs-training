@@ -15,7 +15,7 @@ export class Book {
   genre: string;
 
   // @ApiProperty({
-  //   example: 'Esta edición del Ingenioso hidalgo don Quijote de la Mancha ...',
+  // example: 'Esta edición del Ingenioso hidalgo don Quijote de la Mancha ...',
   // })
   @Column('text')
   description: string;
