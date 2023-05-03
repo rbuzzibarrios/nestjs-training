@@ -12,7 +12,12 @@ import { TypeOrmModule } from '@nestjs/typeorm';
       envFilePath: ['.env.testing', '.env.development', '.env'],
     }),
     TypeOrmModule.forRoot({
-      type: 'postgres',
+      type: process.env?.DATABASE_DRIVER as
+        | 'mysql'
+        | 'postgres'
+        | 'mssql'
+        | 'mongodb'
+        | 'expo',
       host: process.env.DATABASE_HOST,
       port: process.env.DATABASE_PORT
         ? (process.env.DATABASE_PORT as unknown as number)

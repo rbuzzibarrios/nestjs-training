@@ -49,6 +49,7 @@ jobs:
       DATABASE_NAME: test
       DATABASE_PORT: 3306
       DATABASE_HOST: localhost
+      DATABASE_DRIVER: postgres
       API_VERSION: 1
       API_PREFIX: api
     strategy:
@@ -73,5 +74,7 @@ jobs:
           node-version: ${{ matrix.node-version }}
           cache: 'yarn'
       - run: yarn install
+      - run: yarn build
+      - run: yarn seed:run
       - run: yarn test
       - run: yarn test:e2e
