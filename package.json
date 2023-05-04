@@ -23,7 +23,10 @@
     "seed:config": "ts-node ./node_modules/typeorm-seeding/dist/cli.js config",
     "seed:run": "ts-node ./node_modules/typeorm-seeding/dist/cli.js seed",
     "schema:drop": "ts-node ./node_modules/typeorm/cli.js schema:drop",
-    "schema:sync": "ts-node ./node_modules/typeorm/cli.js schema:sync"
+    "schema:sync": "ts-node ./node_modules/typeorm/cli.js schema:sync",
+    "typeorm:cli": "typeorm-ts-node-esm",
+    "migration:create": "ts-node ./node_modules/typeorm/cli.js migration:create ./src/database/migrations/$file",
+    "migrate": "yarn typeorm:cli migration:run -d ./src/data-source.ts"
   },
   "dependencies": {
     "@nestjs/common": "^9.0.0",
