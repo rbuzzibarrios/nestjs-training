@@ -50,10 +50,10 @@ jobs:
           node-version: ${{ matrix.node-version }}
           cache: 'yarn'
       - run: yarn install
-      - run: yarn build
-      - run: yarn migrate
-      - run: yarn seed:run
-      - run: yarn start:wnest
+      - run: NODE_ENV=testing yarn build
+      - run: NODE_ENV=testing yarn migrate
+      - run: NODE_ENV=testing yarn seed:run
+      - run: NODE_ENV=testing yarn start:wnest
   lint:
     needs: build
     runs-on: ubuntu-latest
