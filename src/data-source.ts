@@ -17,7 +17,7 @@ const envConfig = require('dotenv').config({
 });
 
 export function env(key: string | number, defaultValue: string | number = '') {
-  return envConfig?.parsed[key] || process?.env[key] || defaultValue;
+  return envConfig.parsed[key] || process.env[key] || defaultValue;
 }
 
 export function isEnv(name = 'production') {
