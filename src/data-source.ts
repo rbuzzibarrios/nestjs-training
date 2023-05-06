@@ -17,11 +17,15 @@ const envConfig = require('dotenv').config({
 });
 
 export function env(key: string | number, defaultValue: string | number = '') {
-  return envConfig.parsed[key] || process.env[key] || defaultValue;
+  if (envConfig.parsed) {
+    return envConfig.parsed[key] ? envConfig.parsed[key] : defaultValue;
+  }
+
+  return process.env ? process.env[key] : defaultValue;
 }
 
 export function isEnv(name = 'production') {
-  return process.env.NODE_ENV === name;
+  return process.env['NODE_ENV'] === name;
 }
 
 export const AppDataSource = new DataSource({
