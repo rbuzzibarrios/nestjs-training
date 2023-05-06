@@ -1,3 +1,11 @@
+import { DataSource } from 'typeorm';
+
+import {
+  TypeOrmModuleAsyncOptions,
+  TypeOrmModuleOptions,
+} from '@nestjs/typeorm';
+import { ConfigModule, ConfigService } from '@nestjs/config';
+
 export const path = require('path') // eslint-disable-line
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 // eslint-disable-next-line @typescript-eslint/no-var-requires
@@ -8,8 +16,6 @@ const envConfig = require('dotenv').config({
   ),
 });
 
-import { DataSource } from 'typeorm';
-
 export function env(key: string | number, defaultValue: string | number = '') {
   return envConfig?.parsed[key] || process?.env[key] || defaultValue;
 }
@@ -19,14 +25,29 @@ export function isEnv(name = 'production') {
 }
 
 export const AppDataSource = new DataSource({
-  type: env('DATABASE_DRIVER', 'postgres'),
+  type: env('DATABASE_DRIVER', 'mysql'),
+  host: env('DATABASE_HOST'),
+  port: env('DATABASE_PORT', 3306),
   database: env('DATABASE_NAME'),
   username: env('DATABASE_USER'),
   password: env('DATABASE_PASSWORD'),
-  entities: [path.resolve('src/**/*.entity{.ts,.js}')],
-  migrations: [path.resolve('src/database/migrations/**/*.ts')],
+  entities: [path.resolve(__dirname, '**/*.entity{.ts,.js}')],
+  migrations: [path.resolve(__dirname, 'database/migrations/**/*.ts')],
   dropSchema: isEnv('testing'),
   synchronize: isEnv('testing'),
   logger: 'advanced-console',
   logging: ['warn', 'error'],
 });
+
+export const typeOrmAsyncConfig: TypeOrmModuleAsyncOptions = {
+  imports: [ConfigModule],
+  inject: [ConfigService],
+  useFactory: async (): Promise<TypeOrmModuleOptions> => {
+    return {
+      ...AppDataSource.options,
+      extra: {
+        charset: 'utf8mb4_unicode_ci',
+      },
+    };
+  },
+};

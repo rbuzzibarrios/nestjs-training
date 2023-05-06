@@ -5,10 +5,27 @@ on:
     branches: [ "main" ]
   pull_request:
     branches: [ "main", "dev" ]
+  workflow_dispatch:
+    inputs:
+      test:
+        description: 'test input'
+        requires: false
+        default: 'test'
+        type: 'string'
 
 jobs:
   build:
     runs-on: ubuntu-latest
+    env:
+      NODE_ENV: testing
+      DATABASE_USER: user
+      DATABASE_PASSWORD: secret
+      DATABASE_NAME: test
+      DATABASE_PORT: 3306
+      DATABASE_HOST: localhost
+      DATABASE_DRIVER: mysql
+      API_VERSION: 1
+      API_PREFIX: api
     strategy:
       matrix:
         node-version: [16.x]
@@ -24,6 +41,9 @@ jobs:
           cache: 'yarn'
       - run: yarn install
       - run: yarn build
+      - run: yarn migrate
+      - run: yarn seed:run
+      - run: yarn start:wnest
   lint:
     needs: build
     runs-on: ubuntu-latest
