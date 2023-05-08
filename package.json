@@ -27,7 +27,8 @@
     "typeorm:cli": "typeorm-ts-node-esm",
     "create:migration": "ts-node ./node_modules/typeorm/cli.js migration:create ./src/database/migrations/$file",
     "generate:migration": "yarn typeorm:cli migration:generate ./src/database/migrations/$file -d ./src/data-source.ts",
-    "migrate": "yarn typeorm:cli migration:run -d ./src/data-source.ts"
+    "migrate": "yarn typeorm:cli migration:run -d ./src/data-source.ts",
+    "migrate:rollback": "yarn typeorm:cli migration:revert -d ./src/data-source.ts"
   },
   "dependencies": {
     "@nestjs/common": "^9.0.0",
