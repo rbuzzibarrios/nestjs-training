@@ -40,4 +40,4 @@ lerna-debug.log*
 .env.testing
 
 # Database config
-ormconfig.ts
+#ormconfig.ts

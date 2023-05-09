@@ -1,7 +1,7 @@
 import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 // import { ApiProperty } from '@nestjs/swagger'
 
-@Entity()
+@Entity({ name: 'books' })
 export class Book {
   @PrimaryGeneratedColumn()
   id: number;
@@ -35,4 +35,7 @@ export class Book {
   // @ApiProperty({ example: 'www.imagen.com/quijote.png' })
   @Column({ nullable: true })
   image_url: string;
+
+  @Column({ nullable: true })
+  isbn_number: string;
 }

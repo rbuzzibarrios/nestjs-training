@@ -5,16 +5,47 @@ on:
     branches: [ "main" ]
   pull_request:
     branches: [ "main", "dev" ]
+  workflow_dispatch:
+    inputs:
+      test:
+        description: 'test input'
+        requires: false
+        default: 'test'
+        type: 'string'
 
 jobs:
   build:
     runs-on: ubuntu-latest
+    env:
+      NODE_ENV: testing
+      DATABASE_USER: user
+      DATABASE_PASSWORD: secret
+      DATABASE_NAME: test
+      DATABASE_PORT: 5432
+      DATABASE_HOST: localhost
+      DATABASE_DRIVER: postgres
+      API_VERSION: 1
+      API_PREFIX: api
     strategy:
       matrix:
         node-version: [16.x]
 #        node-version: [14.x, 16.x, 18.x]
         # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
-
+    services:
+      mysql:
+        image: postgres:latest
+        env:
+          POSTGRES_USER: user
+          POSTGRES_DB: test
+          POSTGRES_PASSWORD: secret
+          POSTGRES_PORT: 5432
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
     steps:
       - uses: actions/checkout@v3
       - name: Use Node.js ${{ matrix.node-version }}
@@ -23,7 +54,9 @@ jobs:
           node-version: ${{ matrix.node-version }}
           cache: 'yarn'
       - run: yarn install
-      - run: yarn build
+      - run: NODE_ENV=testing yarn build
+      - run: NODE_ENV=testing yarn migrate
+      - run: NODE_ENV=testing yarn seed:run
   lint:
     needs: build
     runs-on: ubuntu-latest
