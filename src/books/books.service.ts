@@ -23,7 +23,7 @@ export class BooksService {
     return await this.bookRepository.findOneBy({ id });
   }
 
-  update(id: any, updateBookDto: UpdateBookDto) {
+  update(id: number, updateBookDto: UpdateBookDto) {
     return this.bookRepository.save({ ...updateBookDto, id });
   }
 
