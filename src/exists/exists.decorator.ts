@@ -25,7 +25,6 @@ export class ExistsConstraint implements ValidatorConstraintInterface {
           [property]: value,
         });
 
-      console.log('record', record);
 
       return true;
     } catch (e) {
