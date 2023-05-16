@@ -5,6 +5,7 @@ import { ConfigModule } from '@nestjs/config';
 import { BooksModule } from './books/books.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { typeOrmAsyncConfig } from './data-source';
+import { ExistsConstraint } from './exists/exists.decorator';
 
 @Module({
   imports: [
@@ -17,6 +18,6 @@ import { typeOrmAsyncConfig } from './data-source';
     BooksModule,
   ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [AppService, ExistsConstraint],
 })
 export class AppModule {}
