@@ -24,7 +24,7 @@ export class BooksService {
   }
 
   update(id: number, updateBookDto: UpdateBookDto) {
-    return this.bookRepository.save({ id, ...updateBookDto });
+    return this.bookRepository.save({ ...updateBookDto, id });
   }
 
   remove(id: number) {

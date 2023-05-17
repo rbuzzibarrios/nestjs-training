@@ -10,6 +10,7 @@ import {
 import { BooksService } from './books.service';
 import { CreateBookDto } from './dto/create-book.dto';
 import { UpdateBookDto } from './dto/update-book.dto';
+import { FindBookRequest } from './dto/find-book-request';
 
 @Controller('books')
 export class BooksController {
@@ -31,8 +32,11 @@ export class BooksController {
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateBookDto: UpdateBookDto) {
-    return this.booksService.update(+id, updateBookDto);
+  update(
+    @Param() params: FindBookRequest,
+    @Body() updateBookDto: UpdateBookDto,
+  ) {
+    return this.booksService.update(+params.id, updateBookDto);
   }
 
   @Delete(':id')

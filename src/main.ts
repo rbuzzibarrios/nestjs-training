@@ -1,5 +1,7 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
+import { ValidationPipe } from '@nestjs/common';
+import { useContainer } from 'class-validator';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
@@ -7,6 +9,9 @@ async function bootstrap() {
   console.log(`${process.env.API_PREFIX}/v${process.env.API_VERSION}`);
 
   app.setGlobalPrefix(`${process.env.API_PREFIX}/v${process.env.API_VERSION}`);
+  app.useGlobalPipes(new ValidationPipe());
+
+  useContainer(app.select(AppModule), { fallbackOnErrors: true });
 
   await app.listen(process.env.PORT ? parseInt(process.env.PORT) : 3000);
   // await app.listen(
