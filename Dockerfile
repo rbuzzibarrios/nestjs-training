@@ -4,7 +4,7 @@ WORKDIR /var/www/html
 
 COPY --chown=node:node package*.json ./
 
-RUN chown -R node.node /var/www/html
+RUN chown -R node.node /var/www/html/dist
 
 USER node
 RUN yarn install
