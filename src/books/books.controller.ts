@@ -10,7 +10,8 @@ import {
 import { BooksService } from './books.service';
 import { CreateBookDto } from './dto/create-book.dto';
 import { UpdateBookDto } from './dto/update-book.dto';
-import { FindBookRequest } from './dto/find-book-request';
+import { FindBookRequestDto } from './dto/find-book-request-dto';
+import { BodyBookRequestDto } from './dto/body-book-request.dto';
 
 @Controller('books')
 export class BooksController {
@@ -21,9 +22,9 @@ export class BooksController {
     return this.booksService.create(createBookDto);
   }
 
-  @Get()
-  findAll() {
-    return this.booksService.findAll();
+  @Post('all')
+  findAll(@Body() body: BodyBookRequestDto) {
+    return this.booksService.findAll(body);
   }
 
   @Get(':id')
@@ -33,7 +34,7 @@ export class BooksController {
 
   @Patch(':id')
   update(
-    @Param() params: FindBookRequest,
+    @Param() params: FindBookRequestDto,
     @Body() updateBookDto: UpdateBookDto,
   ) {
     return this.booksService.update(+params.id, updateBookDto);
