@@ -1,0 +1,6 @@
+{
+    "editor.fontSize": 16,
+    "files.autoSave": "afterDelay",
+    "terminal.integrated.fontSize": 17,
+    "terminal.integrated.confirmOnExit": "always"
+}
