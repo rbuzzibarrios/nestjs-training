@@ -2,5 +2,6 @@
     "editor.fontSize": 16,
     "files.autoSave": "afterDelay",
     "terminal.integrated.fontSize": 17,
+    "explorer.openEditors.minVisible": 0,
     "terminal.integrated.confirmOnExit": "always"
 }
