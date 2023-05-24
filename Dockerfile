@@ -4,14 +4,14 @@ WORKDIR /var/www/html
 
 COPY --chown=node:node package*.json ./
 
-RUN chown -R node.node /var/www/html/dist
-
-USER node
 RUN yarn install
 
 COPY --chown=node:node . .
 
-USER node
+RUN mkdir -p dist
+
+RUN chown -R node.node dist
+
 RUN yarn build
 
 USER node
