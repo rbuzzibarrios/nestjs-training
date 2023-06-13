@@ -6,7 +6,7 @@ import {
   FastifyAdapter,
   NestFastifyApplication,
 } from '@nestjs/platform-fastify';
-import {join} from 'path';
+import { join } from 'path';
 
 async function bootstrap() {
   const app = await NestFactory.create<NestFastifyApplication>(
@@ -32,7 +32,10 @@ async function bootstrap() {
 
   useContainer(app.select(AppModule), { fallbackOnErrors: true });
 
-  await app.listen(process.env.PORT ? parseInt(process.env.PORT) : 3000, process.env.APP_URL as string);
+  await app.listen(
+    process.env.PORT ? parseInt(process.env.PORT) : 3000,
+    process.env.APP_URL as string,
+  );
 }
 
 bootstrap();

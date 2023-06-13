@@ -6,6 +6,8 @@ import {
   Patch,
   Param,
   Delete,
+  ValidationPipe,
+  UsePipes,
 } from '@nestjs/common';
 import { BooksService } from './books.service';
 import { CreateBookDto } from './dto/create-book.dto';
@@ -23,6 +25,12 @@ export class BooksController {
   }
 
   @Post('all')
+  @UsePipes(
+    new ValidationPipe({
+      whitelist: true,
+      forbidNonWhitelisted: true,
+    }),
+  )
   findAll(@Body() body: BodyBookRequestDto) {
     return this.booksService.findAll(body);
   }
@@ -33,6 +41,12 @@ export class BooksController {
   }
 
   @Patch(':id')
+  @UsePipes(
+    new ValidationPipe({
+      whitelist: true,
+      forbidNonWhitelisted: true,
+    }),
+  )
   update(
     @Param() params: FindBookRequestDto,
     @Body() updateBookDto: UpdateBookDto,

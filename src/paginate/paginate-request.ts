@@ -1,15 +1,30 @@
-import { IsOptional, IsPositive } from 'class-validator';
+import {
+  IsNotEmpty,
+  IsOptional,
+  IsPositive,
+  ValidateNested,
+} from 'class-validator';
+import { Type } from 'class-transformer';
+
+class OrderByRequest {
+  @IsNotEmpty()
+  column: string;
+
+  @IsNotEmpty()
+  order: 'ASC' | 'DESC';
+}
 
 export class PaginateRequest {
   @IsOptional()
-  orderBy?: {
-    column?: string;
-    order?: 'ASC' | 'DESC';
-  };
+  @ValidateNested()
+  @Type(() => OrderByRequest)
+  orderBy: OrderByRequest;
 
   @IsOptional()
   @IsPositive()
-  page?: 1;
+  page: 1;
 
-  perPage?: 10;
+  @IsOptional()
+  @IsPositive()
+  perPage: 10;
 }

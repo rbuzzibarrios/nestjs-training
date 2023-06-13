@@ -19,11 +19,9 @@ export class ExistsConstraint implements ValidatorConstraintInterface {
     if (!value || !model) return false;
 
     try {
-      const record = await this.datasource
-        .getRepository(model)
-        .findOneByOrFail({
-          [property]: value,
-        });
+      await this.datasource.getRepository(model).findOneByOrFail({
+        [property]: value,
+      });
 
       return true;
     } catch (e) {
