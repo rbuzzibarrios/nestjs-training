@@ -31,13 +31,17 @@
     "migrate:rollback": "yarn typeorm:cli migration:revert -d ./src/data-source.ts"
   },
   "dependencies": {
+    "@fastify/static": "^6.10.1",
+    "@fastify/view": "^7.4.1",
     "@nestjs/common": "^9.0.0",
     "@nestjs/config": "^2.3.1",
     "@nestjs/core": "^9.0.0",
     "@nestjs/mapped-types": "^1.2.2",
     "@nestjs/platform-express": "^9.0.0",
+    "@nestjs/platform-fastify": "^9.4.2",
     "@nestjs/typeorm": "^9.0.1",
     "dynamoose": "^3.2.0",
+    "handlebars": "^4.7.7",
     "mysql2": "^3.2.0",
     "pg": "^8.10.0",
     "reflect-metadata": "^0.1.13",

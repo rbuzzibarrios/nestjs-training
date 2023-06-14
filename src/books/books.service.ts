@@ -24,7 +24,7 @@ export class BooksService {
       },
     };
 
-    if (params.filters != undefined) {
+    if (params?.filters != undefined) {
       options = {
         where: { ...params.filters },
         ...options,
@@ -32,8 +32,8 @@ export class BooksService {
     }
 
     if (
-      params.paginate?.page != undefined &&
-      params.paginate?.perPage != undefined
+      params?.paginate?.page != undefined &&
+      params?.paginate?.perPage != undefined
     ) {
       options = {
         ...options,
