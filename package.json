@@ -31,6 +31,7 @@
     "migrate:rollback": "yarn typeorm:cli migration:revert -d ./src/data-source.ts"
   },
   "dependencies": {
+    "@nestjs/cache-manager": "^1.0.0",
     "@fastify/static": "^6.10.1",
     "@fastify/view": "^7.4.1",
     "@nestjs/common": "^9.0.0",
@@ -40,6 +41,7 @@
     "@nestjs/platform-express": "^9.0.0",
     "@nestjs/platform-fastify": "^9.4.2",
     "@nestjs/typeorm": "^9.0.1",
+    "cache-manager": "^5.2.2",
     "dynamoose": "^3.2.0",
     "handlebars": "^4.7.7",
     "mysql2": "^3.2.0",
