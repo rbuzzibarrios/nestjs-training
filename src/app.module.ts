@@ -17,7 +17,7 @@ import { APP_INTERCEPTOR } from '@nestjs/core';
       envFilePath: ['.env.testing', '.env.development', '.env'],
     }),
     CacheModule.register({
-      isGlobal: true
+      isGlobal: true,
     }),
     TypeOrmModule.forRootAsync(typeOrmAsyncConfig),
     BooksModule,
@@ -31,6 +31,6 @@ import { APP_INTERCEPTOR } from '@nestjs/core';
       useClass: CacheInterceptor,
     },
   ],
-  exports: [CacheModule]
+  exports: [CacheModule],
 })
 export class AppModule {}
