@@ -6,6 +6,7 @@ import {
   Patch,
   Param,
   Delete,
+  UseInterceptors,
   ValidationPipe,
   UsePipes,
 } from '@nestjs/common';
@@ -14,8 +15,10 @@ import { CreateBookDto } from './dto/create-book.dto';
 import { UpdateBookDto } from './dto/update-book.dto';
 import { FindBookRequestDto } from './dto/find-book-request-dto';
 import { BodyBookRequestDto } from './dto/body-book-request.dto';
+import { CacheInterceptor, CacheKey, CacheTTL } from '@nestjs/cache-manager';
 
 @Controller('books')
+@UseInterceptors(CacheInterceptor)
 export class BooksController {
   constructor(private readonly booksService: BooksService) {}
 
@@ -25,6 +28,8 @@ export class BooksController {
   }
 
   @Post('all')
+  @CacheKey('custom_key')
+  @CacheTTL(6000)
   @UsePipes(
     new ValidationPipe({
       whitelist: true,
@@ -36,6 +41,8 @@ export class BooksController {
   }
 
   @Get(':id')
+  @CacheKey('get_book')
+  @CacheTTL(6000)
   findOne(@Param('id') id: string) {
     return this.booksService.findOne(+id);
   }
