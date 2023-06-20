@@ -5,15 +5,31 @@ services:
     image: postgres:15.2-alpine
     restart: always
     ports:
-      - '5432:5432'
+      - '${FORWARD_POSTGRES_PORT:-5432}:5432'
     volumes:
-      - todo-postgres-data:/var/lib/postgresql/data
+      - 'nestjs-training-postgres-data:/var/lib/postgresql/data'
     environment:
       POSTGRES_DB: ${DATABASE_NAME}
       POSTGRES_PASSWORD: ${DATABASE_PASSWORD}
       POSTGRES_USER: ${DATABASE_USER}
     networks:
       - networknestjs
+
+  redis:
+    image: 'redis:alpine'
+    ports:
+      - '${FORWARD_REDIS_PORT:-6379}:6379'
+    volumes:
+      - 'nestjs-training-redis-data:/data'
+    networks:
+      - networknestjs
+    healthcheck:
+      test:
+        - CMD
+        - redis-cli
+        - ping
+      retries: 3
+      timeout: 5s
 
   nestjs-training:
     build: ./
@@ -27,6 +43,7 @@ services:
       - .env.development
     depends_on:
       - postgres
+      - redis
     networks:
       - networknestjs
 
@@ -35,4 +52,7 @@ networks:
     driver: bridge
 
 volumes:
-  todo-postgres-data:
+  nestjs-training-postgres-data:
+    driver: local
+  nestjs-training-redis-data:
+    driver: local

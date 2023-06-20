@@ -26,12 +26,16 @@ jobs:
       DATABASE_DRIVER: postgres
       API_VERSION: 1
       API_PREFIX: api
+      REDIS_HOST: localhost
+      REDIS_PASSWORD: null
+      REDIS_PORT: 6379
+      FORWARD_REDIS_PORT: 6379
     strategy:
       matrix:
         node-version: [16.x]
         # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
     services:
-      mysql:
+      postgres:
         image: postgres:latest
         env:
           POSTGRES_USER: user
@@ -45,6 +49,12 @@ jobs:
           --health-interval 10s
           --health-timeout 5s
           --health-retries 5
+      redis:
+        image: redis
+        ports:
+          - 6379:6379
+        options: --health-cmd="redis-cli ping" --health-interval=10s --health-timeout=5s --health-retries=3
+
     steps:
       - uses: actions/checkout@v3
       - name: Use Node.js ${{ matrix.node-version }}
@@ -84,6 +94,10 @@ jobs:
       DATABASE_DRIVER: mysql
       API_VERSION: 1
       API_PREFIX: api
+      REDIS_HOST: localhost
+      REDIS_PASSWORD: null
+      REDIS_PORT: 6379
+      FORWARD_REDIS_PORT: 6379
     strategy:
       matrix:
         node-version: [16.x]
@@ -98,6 +112,12 @@ jobs:
         ports:
           - 3306:3306
         options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
+      redis:
+        image: redis
+        ports:
+          - 6379:6379
+        options: --health-cmd="redis-cli ping" --health-interval=10s --health-timeout=5s --health-retries=3
+
     steps:
       - uses: actions/checkout@v3
       - name: Use Node.js ${{ matrix.node-version }}
