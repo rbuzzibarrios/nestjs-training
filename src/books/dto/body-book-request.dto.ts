@@ -1,8 +1,7 @@
-import { IsOptional, ValidateNested } from 'class-validator';
+import { IsOptional } from 'class-validator';
 import { PaginateRequest } from '../../paginate/paginate-request';
-import { Type } from 'class-transformer';
 
-class FiltersBookDto {
+export class BodyBookRequestDto extends PaginateRequest {
   @IsOptional()
   title: string;
 
@@ -14,16 +13,4 @@ class FiltersBookDto {
 
   @IsOptional()
   author: string;
-}
-
-export class BodyBookRequestDto {
-  @IsOptional()
-  @ValidateNested()
-  @Type(() => FiltersBookDto)
-  filters: FiltersBookDto;
-
-  @IsOptional()
-  @ValidateNested()
-  @Type(() => PaginateRequest)
-  paginate: PaginateRequest;
 }
