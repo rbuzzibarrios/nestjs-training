@@ -9,6 +9,7 @@ import {
   UseInterceptors,
   ValidationPipe,
   UsePipes,
+  Query,
 } from '@nestjs/common';
 import { BooksService } from './books.service';
 import { CreateBookDto } from './dto/create-book.dto';
@@ -27,7 +28,7 @@ export class BooksController {
     return this.booksService.create(createBookDto);
   }
 
-  @Post('all')
+  @Get('search')
   @CacheKey('custom_key')
   @CacheTTL(6000)
   @UsePipes(
@@ -36,7 +37,7 @@ export class BooksController {
       forbidNonWhitelisted: true,
     }),
   )
-  findAll(@Body() body: BodyBookRequestDto) {
+  findAll(@Query() body: BodyBookRequestDto) {
     return this.booksService.findAll(body);
   }
 

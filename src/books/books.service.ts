@@ -17,32 +17,26 @@ export class BooksService {
   }
 
   findAll(params: BodyBookRequestDto): Promise<Book[]> {
+    const { order, column, perPage, page, ...filters } = params;
+
     let options: FindManyOptions = {
       order: {
-        [params?.paginate?.orderBy?.column || 'id']:
-          params?.paginate?.orderBy?.order || 'ASC',
+        [column || 'id']: order || 'ASC',
       },
     };
 
-    if (params?.filters != undefined) {
+    if (filters) {
       options = {
-        where: { ...params.filters },
+        where: { ...filters },
         ...options,
       };
     }
 
-    if (
-      params?.paginate?.page != undefined &&
-      params?.paginate?.perPage != undefined
-    ) {
+    if (page != undefined && perPage != undefined) {
       options = {
         ...options,
-        skip:
-          params?.paginate?.page === 1
-            ? 0
-            : ((params?.paginate?.page || 1) - 1) *
-              (params?.paginate?.perPage || 10),
-        take: params?.paginate?.perPage,
+        skip: page === 1 ? 0 : ((page || 1) - 1) * (perPage || 10),
+        take: perPage,
       };
     }
 
