@@ -40,8 +40,6 @@ export class BooksService {
       };
     }
 
-    console.log(options);
-
     return this.bookRepository.find(options);
   }
 
