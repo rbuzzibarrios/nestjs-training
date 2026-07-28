@@ -31,7 +31,7 @@
     "migrate:rollback": "yarn typeorm:cli migration:revert -d ./src/data-source.ts"
   },
   "dependencies": {
-    "@fastify/static": "^6.10.1",
+    "@fastify/static": "^10.1.2",
     "@fastify/view": "^7.4.1",
     "@nestjs/cache-manager": "^2.0.0",
     "@nestjs/common": "^10.4.16",
